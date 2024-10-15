@@ -1,0 +1,36 @@
+import java.util.Arrays;//https://javarush.com/groups/posts/1933-klass-arrays-i-ego-ispoljhzovanie
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // Чтение строки ввода это писал Мкоян Артём не нейросеть как и все впрочем
+        String input = scanner.nextLine();
+        // Разделение строки по пробелам
+        String[] inputArray = input.split(" ");
+        // Первое значение - количество элементов в массиве
+        int N = Integer.parseInt(inputArray[0]);
+        int[] sortedArray = new int[N];
+        // Заполнение массива значениями
+        for (int i = 0; i < N; i++) {
+            sortedArray[i] = Integer.parseInt(inputArray[i + 1]);
+        }
+        int[] uniqueArray = deletecopy(sortedArray);
+        System.out.println(Arrays.toString(uniqueArray));// Вывод результата
+        scanner.close();
+    }
+    public static int[] deletecopy(int[] sortedArray) {
+        // Массив для хранения уникальных ну или же тех значений которых всего 1
+        int[] tempArray = new int[sortedArray.length];
+        int uniqueCount = 0;
+        for (int i = 0; i < sortedArray.length; i++) {
+            // Если это первый элемент или текущий элемент не равен предыдущему
+            if (i == 0 || sortedArray[i] != sortedArray[i - 1]) {
+                tempArray[uniqueCount] = sortedArray[i]; // Сохраняем уникальный элемент
+                uniqueCount++;
+            }
+        }
+        // Создаем новый массив нужного размера
+        return Arrays.copyOf(tempArray, uniqueCount);
+    }
+}
